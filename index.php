@@ -53,13 +53,16 @@ function spans($list) {
     </header>
     <article>
       <p><abbr>HTML</abbr> 5 experimentation and demos I've hacked together. Click on the browser support icon or the technology tag to filter the demos (the filter is an <code>OR</code> filter).</p>
-<?php /*
-      <section>
+
+<!--  HTML COMMENT
+
+	    <section>
         <a href="http://introducinghtml5.com" id="ih5">
           <p><strong>Introducing HTML5</strong> by Bruce Lawson &amp; Remy Sharp is the first full length book dedicated to HTML5.</p><p>Get it now and kick some HTML5 ass!</p>
         </a>
-      </section>
-*/ ?>
+      </section>  
+-->
+
 
   <section>
     <a href="https://terminal.training?utm_source=html5demos&utm_medium=banner&utm_campaign=banner" target="_blank" id="promo">
@@ -96,69 +99,78 @@ function spans($list) {
     <footer><a id="built" href="https://twitter.com/rem">@rem built this</a></footer>
 </section>
 <a id="forkme" href="https://github.com/remy/html5demos"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-<script
-  src="https://code.jquery.com/jquery-1.12.4.min.js"
-  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
-  crossorigin="anonymous"></script>
-<script>
-(function() {
 
-  var tags = [];
-  $(document).delegate('span.tag', 'click', function () {
-    var $tag = $(this), tag = $tag.text(), type = $tag.closest('td').attr('class') || 'tags';
+<!-- Javascripts Starts here -->
+	
+     <script
+	  src="https://code.jquery.com/jquery-1.12.4.min.js"
+	  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+	  crossorigin="anonymous">
+     </script>
+	
+     <script>
+	(function() {
 
-    if ($tag.is('.selected')) {
-      $('.' + type + ' span:contains(' + tag + ')').removeClass('selected');
-    } else {
-      $('.' + type + ' span:contains(' + tag + ')').addClass('selected');
-    }
+	  var tags = [];
+	  $(document).delegate('span.tag', 'click', function () {
+	    var $tag = $(this), tag = $tag.text(), type = $tag.closest('td').attr('class') || 'tags';
 
-    // it's an AND filter
-    var $trs = $('.' + type + ':has(span.selected)').closest('tr');
-    if ($trs.length) {
-      $('tbody tr').hide();
-      $trs.show();
-    } else {
-      $('tbody tr').show();
-    }
-  });
+	    if ($tag.is('.selected')) {
+	      $('.' + type + ' span:contains(' + tag + ')').removeClass('selected');
+	    } else {
+	      $('.' + type + ' span:contains(' + tag + ')').addClass('selected');
+	    }
 
-  var html = [];
-  $('.tags span.tag').each(function () {
-    var $tag = $(this), tag = $tag.text();
+	    // it's an AND filter
+	    var $trs = $('.' + type + ':has(span.selected)').closest('tr');
+	    if ($trs.length) {
+	      $('tbody tr').hide();
+	      $trs.show();
+	    } else {
+	      $('tbody tr').show();
+	    }
+	  });
 
-    if (!tags[tag]) {
-      tags[tag] = true;
-      html.push('<span class="tag">' + tag + '</span> ');
-    }
-  });
+	  var html = [];
+	  $('.tags span.tag').each(function () {
+	    var $tag = $(this), tag = $tag.text();
 
-  $('#tags').append('<strong>Filter demos:</strong> ' + html.sort().join(''));
+	    if (!tags[tag]) {
+	      tags[tag] = true;
+	      html.push('<span class="tag">' + tag + '</span> ');
+	    }
+	  });
 
-  $.getJSON('demos.json', function (data) {
-    var i = data.length, $test;
-    while (i--) {
-      if (data[i].test && (new Function('return ' + data[i].test))()) {
-        $('#test-' + data[i].url).addClass('supported').attr('title', 'your browser is supported');
-      } else if (data[i].test) {
-        $('#test-' + data[i].url).addClass('not-supported').attr('title', 'your browser is NOT supported');
-      }
-    }
-  });
+	  $('#tags').append('<strong>Filter demos:</strong> ' + html.sort().join(''));
 
-// $('tr td.demo').click(function () {
-//   window.location = $(this).find('a').attr('href');
-// });
+	  $.getJSON('demos.json', function (data) {
+	    var i = data.length, $test;
+	    while (i--) {
+	      if (data[i].test && (new Function('return ' + data[i].test))()) {
+		$('#test-' + data[i].url).addClass('supported').attr('title', 'your browser is supported');
+	      } else if (data[i].test) {
+		$('#test-' + data[i].url).addClass('not-supported').attr('title', 'your browser is NOT supported');
+	      }
+	    }
+	  });
 
-}());
+	// $('tr td.demo').click(function () {
+	//   window.location = $(this).find('a').attr('href');
+	// });
 
-var _gaq = [['_setAccount', 'UA-1656750-18'], ['_trackPageview']];
-(function(d, t) {
-  var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-  g.async = 1;
-  g.src = '//www.google-analytics.com/ga.js';
-  s.parentNode.insertBefore(g, s);
-}(document, 'script'));
-</script>
+	}());
+
+	var _gaq = [['_setAccount', 'UA-1656750-18'], ['_trackPageview']];
+	(function(d, t) {
+	  var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+	  g.async = 1;
+	  g.src = '//www.google-analytics.com/ga.js';
+	  s.parentNode.insertBefore(g, s);
+	}(document, 'script'));
+	</script>
+	
+<!-- Javascript Ends here-->	
+	
+	
 </body>
 </html>
